@@ -1,0 +1,11 @@
+<div class="container">
+        <div class="heading">{{title}}</div>
+        <div class="chart-container" style="float:right; height:500px; width:900px">
+            <canvas id="chart" baseChart
+              [datasets]="scatterChartData"
+              [options]="scatterChartOptions"
+              [labels]="scatterChartLabels"
+              [chartType]="scatterChartType">
+            </canvas>
+        </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="heading">{{title}}</div>
+    <div class="chart-container" style="float:right; height:500px; width:900px">
+        <canvas id="chart" baseChart
+          [data] = "doughnutChartData"
+          [labels] = "doughnutChartLabels"
+          [chartType] = "doughnutChartType"          
+        ></canvas>
+    </div>
+</div>
