@@ -1,0 +1,12 @@
+<div class="dropdown" style="float:right;margin-right: 66px;">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Export
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item export-cursor" (click)="exportFileAsCsv()">Export as CSV</a>
+      <a class="dropdown-item export-cursor" (click)="exportFileAsExcel()">Export as excel</a>
+      <a class="dropdown-item export-cursor" (click)="exportFileAsPptx()">Export as pptx</a>
+      <!-- <a class="dropdown-item export-cursor" (click)="exportFileAsPPT()">Export as PPT</a> -->
+    </div>
+  </div>
+

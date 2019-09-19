@@ -1,5 +1,5 @@
 <div class="container">
-  <div style="float:right;">
+  <div>
     <label>Select ChartType:&nbsp; </label>
        <select (change) = "changeChartType()" [(ngModel)] ="selectedProduct">
          <option *ngFor="let chart of chartTypes" value={{chart.title}}>{{chart.title}}</option>

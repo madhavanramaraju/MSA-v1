@@ -9,6 +9,7 @@ import { Label } from 'ng2-charts';
 })
 export class ScatterChartComponent implements OnInit {
 
+   title = "Scatter Chart"
    // scatter
    public scatterChartOptions: ChartOptions = {
     responsive: true,

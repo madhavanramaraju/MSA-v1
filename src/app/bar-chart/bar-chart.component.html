@@ -1,13 +1,19 @@
 <div class="container">
     <div class="heading">{{title}}</div>
-    <div class="chart-container" style="float:right; height:500px; width:900px">
-        <canvas id="chart" baseChart
+    <div class="chart-container" style="height:500px; width:500px">
+        <canvas id="barchart" baseChart
           [datasets] = "barChartData"
           [labels] = "barChartLabels"
           [options] = "barChartOptions"
           [legend] = "barChartLegend"
           [chartType] = "barChartType"          
         ></canvas>
+          <select [(ngModel)] ="lessThenOrGreaterThen" style="width:150px;height:30px;">
+            <option value="lessThen">Less Then</option>
+            <option value="GreatThen">GreatThen</option>
+          </select>&nbsp;&nbsp;
+          <input [(ngModel)] = "filterLimit" style="width:150px;height:30px;"> &nbsp;&nbsp;
+          <button class="button" (click) = "applyFilter(filterLimit)">Apply Filter</button>
     </div>
 </div>
 <!-- https://www.techiediaries.com/angular-material-navigation-toolbar-sidenav/ -->

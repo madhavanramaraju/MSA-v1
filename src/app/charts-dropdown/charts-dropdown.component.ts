@@ -18,7 +18,8 @@ export class ChartsDropdownComponent implements OnInit {
     { title:'Pie Chart', route:'/pie-chart' },
     { title:'Line Chart', route:'/line-chart' },
     { title:'Scatter Chart', route:'/scatter-chart' },
-
+    { title:'StackedBar Chart', route:'/stacked-chart' },
+    { title:'Bubble Chart', route:'/bubble-chart' }
   ];
 
   constructor(private router: Router) { }

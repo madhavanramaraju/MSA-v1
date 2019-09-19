@@ -1,12 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-/* @import '~bootstrap\dist\css\bootstrap.min.css'; */
-
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 10; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .heading {
-    text-align:center;
     margin-left:273px;
 }
 
@@ -17,4 +14,8 @@ canvas {
 .customisedTable {
     width:60%;
     float:right;
+}
+
+.export-cursor {
+    cursor: pointer;
 }

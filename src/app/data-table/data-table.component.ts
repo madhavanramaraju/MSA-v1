@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface PeriodicElement {
   name: string;
@@ -20,20 +22,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 
-/**
- * @title Basic use of `<mat-table>` (uses display flex)
- */
 @Component({
-  selector: 'app-table-basic-flex-example',
-  styleUrls: ['./table-basic-flex-example.component.css'],
-  templateUrl: './table-basic-flex-example.component.html',
+  selector: 'app-data-table',
+  templateUrl: './data-table.component.html',
+  styleUrls: ['./data-table.component.css']
 })
-export class TableBasicFlexExampleComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class DataTableComponent implements OnInit {
 
   constructor() { }
 
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   ngOnInit() {
+    this.dataSource.sort = this.sort;
   }
+
 }
