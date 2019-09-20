@@ -1,5 +1,6 @@
 import { Component, OnInit,  ViewChild} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
+import { ChartService } from '../service/chart.service';
 
 @Component({
   selector: 'app-bar-chart',
@@ -25,10 +26,10 @@ export class BarChartComponent implements OnInit {
   lessThenOrGreaterThen: string;
   userName: string;
   Password: string;
-  constructor() { }
+  constructor(private cs: ChartService) { }
 
   ngOnInit() {
-   // this.cs.Login(this.userName, this.Password)
+    this.cs.Login(this.userName, this.Password)
   }
 
    applyFilter(value) {
