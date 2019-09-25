@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as PptxGenJS  from 'pptxgenjs-angular';
+import domtoimage from 'dom-to-image';
+import canvasToImage from 'canvas-to-image';
 
 import { ExportToCsv } from 'export-to-csv';
 import { ExportExcelService } from '../service/export-excel.service'
@@ -20,7 +22,8 @@ import { SP500 } from '../shared/sp500';
 export class ExportComponent implements OnInit {
   filename = 'demo.csv'
   sampleData = [];
-  sampleImage;
+  sampleImgEl = null;
+
   options = { 
     fieldSeparator: ',',
     quoteStrings: '"',
@@ -41,26 +44,28 @@ export class ExportComponent implements OnInit {
     switch(this.router.url) { 
       case '/line-chart': 
         this.sampleData = LINECHART;
+        this.sampleImgEl = 'linechart';
         break;
-      case '/table-view':  
+      case '/data-table':  
         this.sampleData = tableData;
+        this.sampleImgEl = document.getElementById('tableView')
         break; 
       case '/bar-chart': 
         this.sampleData = STATISTICS;
-        let canvas = <HTMLCanvasElement> document.getElementById('barchart');
-        let image = new Image();
-        image.src = canvas.toDataURL("image/png");
-        return image;    
+        this.sampleImgEl = 'barchart';
         break;
       case '/scatter-chart': 
         this.sampleData = TEMPERATURES;
+        this.sampleImgEl = 'scatteredchart';
         break;
       case '/pie-chart':
       case '/doughnut-chart':
         this.sampleData = POPULATION;
+        this.sampleImgEl = 'piechart';
         break;
       case '/stacked-chart':
         this.sampleData = SP500;
+        this.sampleImgEl = 'stackedchart';
         break;
       default: { 
          //statements; 
@@ -85,33 +90,24 @@ export class ExportComponent implements OnInit {
     var pptx = new PptxGenJS();
     var slide = pptx.addNewSlide();
 
-
-// EX: Image from remote URL
-slide.addImage({ data:image, x:1, y:1, w:6, h:4 })
-
-pptx.save('Demo-Images');
-    // var pptx = new PptxGenJS();
-    // var slide = pptx.addNewSlide();
-
-    //   // Chart Type: LINE
-    //   var dataChartAreaLine = [
-    //     {
-    //       name  : 'Actual Sales',
-    //       labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-    //       values: [1500, 4600, 5156, 3167, 8510, 8009, 6006, 7855, 12102, 12789, 10123, 15121]
-    //     },
-    //     {
-    //       name  : 'Projected Sales',
-    //       labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-    //       values: [1000, 2600, 3456, 4567, 5010, 6009, 7006, 8855, 9102, 10789, 11123, 12121]
-    //     }
-    //   ];
-    //   slide.addChart( pptx.charts.LINE, dataChartAreaLine, { x:1.0, y:1.0, w:12, h:6 } );
-   
-    //   pptx.save('Demo-Line-Chart');
-    // // var pptx = new PptxGenJS();
-    // // var slide = pptx.addNewSlide();
-    // // slide.addText('Hello World!', { x:1.5, y:1.5, fontSize:18, color:'363636' });
-    // // pptx.save('Sample Presentation');
+    if(this.router.url === '/data-table') {
+      domtoimage.toPng(this.sampleImgEl)
+      .then(function (dataUrl) {
+          var img = new Image();
+          img.src = dataUrl;
+          slide.addImage({ data: img.src, x:1, y:1, w:8.0, h:4.0 });
+          pptx.save();
+      })
+      .catch(function (error) {
+          console.error('oops, something went wrong!', error);
+      });
+    }
+    else {
+      let canvas = <HTMLCanvasElement> document.getElementById(this.sampleImgEl);
+      let image = new Image();
+      image.src = canvas.toDataURL("image/png");
+      slide.addImage({ data: image.src, x:1, y:1, w:8.0, h:4.0 });
+      pptx.save();
+    }
   }
 }
